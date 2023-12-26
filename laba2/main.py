@@ -36,6 +36,8 @@ Ya = 0.5 + r
 Disk = plt.plot(Xc + Xa, Yc + Ya)[0]
 Xb = 0
 Yb = 1.5 + r + l * n.cos(Phi[0])
+Sx = 0
+Sy = 1.5 - r - l * n.sin(Phi[0])
 
 AB = plt.plot([Xa, Xb], [Ya, Yb])[0]
 
@@ -75,15 +77,16 @@ def run(i):
     Xa = l * n.sin(Phi[i])
     Disk.set_data(Xc + Xa, Yc + Ya)
     Yb = 1.5 + r + l * n.cos(Phi[i])
-    Pruzhina.set_data(Xb + Xp, Ya + (Yb - Ya) * Yp)
+    Sy = 1.5 - r - l * n.sin(Phi[i])
+    Pruzhina.set_data(Xb + Xp, Sy + (Yb - Sy) * Yp)
     AB.set_data([Xa, Xb], [Ya, Yb])
+
     
     Betas = numponts * (2*n.pi * Ns - Phi[i])
     Xs = n.sin(Betas) * (r1 + (r2 - r1)*numponts)
     Ys = n.cos(Betas) * (r1 + (r2 - r1)*numponts)
     SpPruzhina.set_data(Xs + Xa, Ys + Ya)
     
-
     Betas_1 = numponts * (2*n.pi * Ns - Phi[i])
     Xs_1 = n.sin(Betas_1) * (r1 + (r2 - r1)*numponts)
     Ys_1 = n.cos(Betas_1) * (r1 + (r2 - r1)*numponts)
