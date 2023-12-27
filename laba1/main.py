@@ -12,11 +12,11 @@ t = s.Symbol('t')
 x = ((5 - 0.5*t) * s.cos(2*t))
 y = ((5 - 0.5*t) * s.sin(2*t))
 
-Vx = s.diff(x)
-Vy = s.diff(y)
+Vx = s.diff(x, t)
+Vy = s.diff(y, t)
 
-Ax = s.diff(Vx)
-Ay = s.diff(Vy)
+Ax = s.diff(Vx, t)
+Ay = s.diff(Vy, t)
 
 Kx = Vx**2 / Ax
 Ky = Vy**2 / Ay
@@ -47,10 +47,10 @@ axis = fig.add_subplot(1, 1, 1)
 axis.axis('equal')
 axis.set(xlim = [-20, 20], ylim = [-20, 20])
 axis.plot(X, Y)
-Pnt = axis.plot(X[0],Y[0], marker = 'o')[0]
+Pnt = axis.plot(X[0],Y[0], marker = 'o', color = 'black')[0]
 Vp = axis.plot([X[0], X[0] + VX[0]], [Y[0], Y[0] + VY[0]], 'r')[0]
 Ap = axis.plot([X[0], X[0] + AX[0]], [Y[0], Y[0] + AY[0]], 'g')[0]
-Kp = axis.plot([X[0], X[0] + KX[0]], [Y[0], Y[0] + KY[0]], 'y')[0]
+Kp = axis.plot([0, X[0] + KX[0]], [Y[0], Y[0] + KY[0]], 'y')[0]
 
 def Vect_arrow(X, Y, ValX, ValY):
     a = 0.3
@@ -67,8 +67,10 @@ def Vect_arrow(X, Y, ValX, ValY):
 
 RAx, RAy = Vect_arrow(X[0], Y[0], VX[0], VY[0])
 AAx, AAy = Vect_arrow(X[0], Y[0], AX[0], AY[0])
+KAx, KAy = Vect_arrow(X[0], Y[0], KX[0], KY[0])
 Varrow = axis.plot(RAx, RAy, 'red')[0]
 Aarrow = axis.plot(AAx, AAy, 'green')[0]
+Karrow = axis.plot(KAx, KAy, 'yellow')[0]
 
 def anim(i):
     Pnt.set_data([X[i]], [Y[i]])
@@ -77,8 +79,10 @@ def anim(i):
     Kp.set_data([X[i], X[i] + KX[i]], [Y[i], Y[i] + KY[i]])
     RAx, RAy = Vect_arrow(X[i], Y[i], VX[i], VY[i])
     AAx, AAy = Vect_arrow(X[i], Y[i], AX[i], AY[i])
+    KAx, KAy = Vect_arrow(X[i], Y[i], KX[i], KY[i])
     Varrow.set_data(RAx, RAy)
     Aarrow.set_data(AAx, AAy)
+    Karrow.set_data(KAx, KAy)
 
 an = FuncAnimation(fig, anim, frames = step, interval = 1)
 
