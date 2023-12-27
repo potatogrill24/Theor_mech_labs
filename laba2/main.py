@@ -2,9 +2,9 @@ import matplotlib.pyplot as p
 from matplotlib.animation import FuncAnimation
 import numpy as n
 
-T = n.linspace(0, 10, 200)
+T = n.linspace(1, 2.5, 100)
 
-Phi = n.sin(0.5*T) + 1.1
+Phi = n.sin(1.5*T) + 0.7
 
 fgr = p.figure()
 plt = fgr.add_subplot(1, 1, 1)
@@ -76,7 +76,7 @@ SpPruzhina_1 = plt.plot(Xs_1 + Xb, Ys_1 + Yb)[0]
 def run(i):
     Xa = l * n.sin(Phi[i])
     Disk.set_data(Xc + Xa, Yc + Ya)
-    Yb = 1.5 + r + l * n.cos(Phi[i])
+    Yb = 0.5 + r + l * n.cos(Phi[i])
     Sy = 1.5 - r - l * n.sin(Phi[i])
     Pruzhina.set_data(Xb + Xp, Sy + (Yb - Sy) * Yp)
     AB.set_data([Xa, Xb], [Ya, Yb])
